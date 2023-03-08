@@ -11,7 +11,7 @@ class TestHelpers {
 
     static company(int id) {
         new Company(("$id").repeat(10),
-                "ul. Bukowińska 24d/$id 02-703 Warszawa, Polska",
+                "ul. Bukowinska 24d/$id 02-703 Warszawa, Polska",
                 "iCode Trust $id Sp. z o.o")
     }
 
