@@ -25,12 +25,12 @@ public class InvoiceService {
     return database.getAll();
   }
 
-  public void update(int id, Invoice updatedInvoice) {
-    database.update(id, updatedInvoice);
+  public Optional<Invoice> update(int id, Invoice updatedInvoice) {
+    return database.update(id, updatedInvoice);
   }
 
-  public void delete(int id) {
-    database.delete(id);
+  public Optional<Invoice> delete(int id) {
+    return database.delete(id);
   }
 
 }

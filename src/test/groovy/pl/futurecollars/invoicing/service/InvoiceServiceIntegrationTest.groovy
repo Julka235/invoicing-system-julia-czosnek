@@ -68,29 +68,27 @@ class InvoiceServiceIntegrationTest extends Specification {
         service.getAll().isEmpty()
     }
 
-    def "deleting not existing invoice is not causing any error"() {
+    def "deleting not existing invoice returns Optional.empty()"() {
         expect:
-        service.delete(123)
+        service.delete(123) == Optional.empty()
     }
 
-    def "it's possible to update the invoice"() {
+    def "it's possible to update the invoice, previous invoice is returned"() {
         given:
-        int id = service.save(invoices.get(0))
+        def originalInvoice = invoices.get(0)
+        int id = service.save(originalInvoice)
 
         when:
-        service.update(id, invoices.get(1))
+        def result = service.update(id, invoices.get(1))
 
         then:
         service.getById(id).get() == invoices.get(1)
+        result == Optional.of(originalInvoice)
     }
 
-    def "updating not existing invoice throws exception"() {
-        when:
-        service.update(213, invoices.get(1))
-
-        then:
-        def ex = thrown(IllegalArgumentException)
-        ex.message == "Id 213 does not exist"
+    def "updating not existing invoice returns Optional.empty()"() {
+        expect:
+        service.update(213, invoices.get(1)) == Optional.empty()
     }
 
 }
