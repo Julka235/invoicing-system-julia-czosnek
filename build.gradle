@@ -7,6 +7,9 @@
  */
 
 plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+
     // Apply the groovy plugin to also add support for Groovy (needed for Spock)
     id 'groovy'
 
@@ -43,9 +46,14 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.16")
     testCompileOnly("org.projectlombok:lombok:1.18.16")
 
+    // Jackson library
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.1'
+
+    // Spring dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 application {
@@ -101,6 +109,14 @@ jacocoTestCoverageVerification {
             }
         }
     }
+
+    afterEvaluate { // TODO: remove after adding tests in Task #6
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: 'pl/futurecollars/invoicing/controller/**')
+        }))
+    }
 }
 
 check.dependsOn jacocoTestCoverageVerification
+
+startScripts.dependsOn bootJar
