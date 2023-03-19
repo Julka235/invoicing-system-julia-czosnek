@@ -5,13 +5,13 @@ import pl.futurecollars.invoicing.utils.FileService
 import java.nio.file.Files
 import java.nio.file.Path
 
-class IdServiceTest extends Specification {
+class IdProviderTest extends Specification {
 
     private Path nextIdDbPath = File.createTempFile('nextId', '.txt').toPath()
 
     def "next id starts from 1 if file was empty"() {
         given:
-        IdService idService = new IdService(nextIdDbPath, new FileService())
+        IdProvider idService = new IdProvider(nextIdDbPath, new FileService())
 
         expect:
         ['1'] == Files.readAllLines(nextIdDbPath)
@@ -32,7 +32,7 @@ class IdServiceTest extends Specification {
     def "next id starts from last number if file was not empty"() {
         given:
         Files.writeString(nextIdDbPath, "17")
-        IdService idService = new IdService(nextIdDbPath, new FileService())
+        IdProvider idService = new IdProvider(nextIdDbPath, new FileService())
 
         expect:
         ['17'] == Files.readAllLines(nextIdDbPath)
