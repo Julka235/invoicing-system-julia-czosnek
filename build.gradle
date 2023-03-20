@@ -35,6 +35,7 @@ dependencies {
 
     // Use the awesome Spock testing and specification framework even with Java
     testImplementation 'org.spockframework:spock-core:2.2-groovy-3.0'
+    testImplementation 'org.spockframework:spock-spring:1.3-groovy-2.5'
     testImplementation 'junit:junit:4.13.2'
 
     // This dependency is used by the application.
@@ -98,21 +99,21 @@ jacocoTestCoverageVerification {
         rule {
             limit {
                 counter = 'BRANCH'
-                minimum = 0.70
+                minimum = 0.85
             }
         }
 
         rule {
             limit {
                 counter = 'LINE'
-                minimum = 0.70
+                minimum = 0.85
             }
         }
     }
 
-    afterEvaluate { // TODO: remove after adding tests in Task #6
+    afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: 'pl/futurecollars/invoicing/controller/**')
+            fileTree(dir: it, exclude: 'pl/futurecollars/invoicing/InvoiceApplication.class')
         }))
     }
 }
