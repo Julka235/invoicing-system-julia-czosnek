@@ -1,4 +1,4 @@
-package pl.futurecollars.invoicing
+package pl.futurecollars.invoicing.helpers
 
 import pl.futurecollars.invoicing.model.Company
 import pl.futurecollars.invoicing.model.Invoice
@@ -16,7 +16,7 @@ class TestHelpers {
     }
 
     static product(int id) {
-        new InvoiceEntry("Programming course $id", BigDecimal.valueOf(id * 1000), BigDecimal.valueOf(id * 1000 * 0.08), Vat.VAT_8)
+        new InvoiceEntry("Programming course $id", id, BigDecimal.valueOf(id * 1000), BigDecimal.valueOf(id * 1000 * 0.08), Vat.VAT_8)
     }
 
     static invoice(int id) {
