@@ -4,7 +4,7 @@ package pl.futurecollars.invoicing.db
 import pl.futurecollars.invoicing.model.Invoice
 import spock.lang.Specification
 
-import static pl.futurecollars.invoicing.TestHelpers.invoice
+import static pl.futurecollars.invoicing.helpers.TestHelpers.invoice
 
 abstract class AbstractDatabaseTest extends Specification {
 

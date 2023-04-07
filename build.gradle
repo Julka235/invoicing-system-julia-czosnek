@@ -5,6 +5,8 @@ buildscript {
         spockVersion = '2.3-groovy-3.0'
         springBootVersion = '2.4.2'
         springDependencyManagementVersion = '1.0.11.RELEASE'
+        springFoxStarterVersion = '3.0.0'
+        springFoxUiVersion = '3.0.0'
     }
 }
 
@@ -30,14 +32,16 @@ dependencies {
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "io.springfox:springfox-boot-starter:${springFoxStarterVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${springFoxUiVersion}"
 
     testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
 
     testImplementation "org.codehaus.groovy:groovy:${groovyVersion}"
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.spockframework:spock-core:${spockVersion}"
     testImplementation "org.spockframework:spock-spring:${spockVersion}"
 }
@@ -68,7 +72,7 @@ jacocoTestCoverageVerification {
 
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: 'pl/futurecollars/invoicing/InvoiceApplication.class')
+            fileTree(dir: it, exclude: ['pl/futurecollars/invoicing/InvoiceApplication.class', 'pl/futurecollars/invoicing/db/DatabaseConfiguration.class'])
         }))
     }
 }
